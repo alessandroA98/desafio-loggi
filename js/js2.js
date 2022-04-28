@@ -27,10 +27,17 @@ var pacotesNorte = [];
 var pacotesNordeste = [];
 var pacotesSudeste = [];
 var pacotesSul = [];
-var codigoInvalido = []
+var codigoInvalido = [];
 
 
 var invalidoFrase = 'codigo invalido'
+
+var tipoDestinoSudeste = [];
+var tipoDestinoSul = [];
+var tipoDestinoNorte = [];
+var tipoDestinoNordeste = [];
+var tipoDestinoCentroOeste = [];
+
 
 for (i = 0; i < pacote.length; i++) {
 
@@ -45,7 +52,7 @@ for (i = 0; i < pacote.length; i++) {
     var resultadoOrigem = ''
     var destinoCidade = ''
     var resultadoDestino = ''
-    var tipoProduto = 'Produto: '
+    var tipoProduto = ' '
     var verificacao = 0
     var invalidos = 0
 
@@ -77,39 +84,7 @@ for (i = 0; i < pacote.length; i++) {
         invalidos = 1;
     }
 
-    //DESTINO
-
-    if (destino >= 001 && destino <= 099) {
-        destinoCidade = `Região Sudeste`
-        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
-        pacotesSudeste.push(pacote[i]);
-    }
-    else if (destino >= 100 && destino <= 199) {
-        destinoCidade = `Região Sul`
-        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
-        pacotesSul.push(pacote[i])
-    }
-    else if (destino >= 201 && destino <= 299) {
-        destinoCidade = `Região Centro-oeste`
-        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
-        pacotesCentroOeste.push(pacote[i])
-    }
-    else if (destino >= 300 && destino <= 399) {
-        destinoCidade = `Região Nordeste`
-        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
-        pacotesNordeste.push(pacote[i])
-    }
-    else if (destino >= 400 && destino <= 499) {
-        destinoCidade = `Região Norte`
-        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
-        pacotesNorte.push(pacote[i])
-    }
-    else {
-        invalidos = 1;
-        
-    }
-
-    //TIPO
+    //Tipos
 
     if (tipo == 001) {
         tipoProduto += 'Joias'
@@ -129,6 +104,51 @@ for (i = 0; i < pacote.length; i++) {
     else {
         invalidos = 1;
     }
+    //DESTINO
+
+    if (destino >= 001 && destino <= 099) {
+        destinoCidade = `Região Sudeste`
+        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
+        pacotesSudeste.push(pacote[i]);
+        tipoDestinoSudeste.push(tipoProduto)
+
+    }
+    else if (destino >= 100 && destino <= 199) {
+        destinoCidade = `Região Sul`
+        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
+        pacotesSul.push(pacote[i])
+        tipoDestinoSul.push(tipoProduto)
+
+
+    }
+    else if (destino >= 201 && destino <= 299) {
+        destinoCidade = `Região Centro-oeste`
+        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
+        pacotesCentroOeste.push(pacote[i])
+        tipoDestinoCentroOeste.push(tipoProduto)
+
+
+    }
+    else if (destino >= 300 && destino <= 399) {
+        destinoCidade = `Região Nordeste`
+        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
+        pacotesNordeste.push(pacote[i])
+        tipoDestinoNordeste.push(tipoProduto)
+
+    }
+    else if (destino >= 400 && destino <= 499) {
+        destinoCidade = `Região Norte`
+        resultadoDestino = `Regiao Destino: Cidade ${destino}, ${destinoCidade} `
+        pacotesNorte.push(pacote[i])
+        tipoDestinoNorte.push(tipoProduto)
+
+
+    }
+    else {
+        invalidos = 1;
+
+    }
+
 
     //Impressão
 
@@ -139,21 +159,27 @@ for (i = 0; i < pacote.length; i++) {
 
         if (destino >= 001 && destino <= 099) {
             pacotesSudeste.pop(pacote[i]);
+            tipoDestinoSudeste.pop(pacote[i]);
         }
         else if (destino >= 100 && destino <= 199) {
-            pacotesSul.pop(pacote[i])
+            pacotesSul.pop(pacote[i]);
+            tipoDestinoSul.pop(pacote[i]);
         }
         else if (destino >= 201 && destino <= 299) {
-            pacotesCentroOeste.pop(pacote[i])
+            pacotesCentroOeste.pop(pacote[i]);
+            tipoDestinoCentroOeste.pop(pacote[i]);
         }
+
         else if (destino >= 300 && destino <= 399) {
             pacotesNordeste.pop(pacote[i])
+            tipoDestinoNordeste.pop(pacote[i])
         }
         else if (destino >= 400 && destino <= 499) {
             pacotesNorte.pop(pacote[i])
+            tipoDestinoNorte.pop(pacote[i])
         }
 
- 
+
     }
     else if (verificacao == 1 && tipo == 001) {
         console.log(`Não é possível despachar pacotes contendo jóias tendo como região de origem o Centro - oeste; Codigo:${pacote[i]}  \n `)
@@ -161,56 +187,80 @@ for (i = 0; i < pacote.length; i++) {
 
         if (destino >= 001 && destino <= 099) {
             pacotesSudeste.pop(pacote[i]);
+            tipoDestinoSudeste.pop(pacote[i]);
         }
         else if (destino >= 100 && destino <= 199) {
             pacotesSul.pop(pacote[i])
+            tipoDestinoSul.pop(pacote[i]);
+
         }
         else if (destino >= 201 && destino <= 299) {
             pacotesCentroOeste.pop(pacote[i])
+            tipoDestinoCentroOeste.pop(pacote[i]);
+
         }
-        else if (destino >= 300 && destino <= 399) {
+        else if (destino >= 400 && destino <= 499) {
             pacotesNordeste.pop(pacote[i])
+            tipoDestinoNordeste.pop(pacote[i])
+
         }
         else if (destino >= 400 && destino <= 499) {
             pacotesNorte.pop(pacote[i])
+            tipoDestinoNorte.pop(pacote[i])
+
         }
 
     }
     else if (invalidos == 1) {
         console.log(`Codigo ${pacote[i]} Invalido \n`)
         codigoInvalido.push(pacote[i])
-        
+
         if (destino >= 001 && destino <= 099) {
             pacotesSudeste.pop(pacote[i]);
+            tipoDestinoSudeste.pop(pacote[i]);
+
         }
         else if (destino >= 100 && destino <= 199) {
             pacotesSul.pop(pacote[i])
+            tipoDestinoSul.pop(pacote[i]);
+
         }
         else if (destino >= 201 && destino <= 299) {
             pacotesCentroOeste.pop(pacote[i])
+            tipoDestinoCentroOeste.pop(pacote[i]);
+
         }
         else if (destino >= 300 && destino <= 399) {
             pacotesNordeste.pop(pacote[i])
+            tipoDestinoNordeste.pop(pacote[i])
+
         }
         else if (destino >= 400 && destino <= 499) {
             pacotesNorte.pop(pacote[i])
+            tipoDestinoNorte.pop(pacote[i])
+
         }
 
     }
-    else if(origemCidade == 'Região Sul' && tipo == 888 ) {
+    else if (origemCidade == 'Região Sul' && tipo == 888) {
         console.log(` OBS: pacotes têm como origem a região Sul e Brinquedos em seu conteúdo; \n Código: ${pacote[i]} \n ${resultadoOrigem} \n ${resultadoDestino} \n Codigo Loggi: ${codigoLoggi} \n Codigo do vendedor do produto: ${codigoProduto} \n ${tipoProduto} \n`)
     }
     else {
         console.log(`Código: ${pacote[i]} \n ${resultadoOrigem} \n ${resultadoDestino} \n Codigo Loggi: ${codigoLoggi} \n Codigo do vendedor do produto: ${codigoProduto} \n ${tipoProduto} \n`)
-    }    
+    }
 }
 
 
-console.log(`Pacotes do Centro-Oeste:${pacotesCentroOeste}`)
-console.log(`Pacotes do Norte:${pacotesNorte}`)
-console.log(`Pacotes do Nordeste:${pacotesNordeste}`)
-console.log(`Pacotes do Sudeste:${pacotesSudeste}`)
-console.log(`Pacotes do Sul:${pacotesSul}`)
-console.log(`Codigos invalidos: ${codigoInvalido} `)
+console.log(`Pacotes do Centro-Oeste:${pacotesCentroOeste} \nTotal:${pacotesCentroOeste.length} \nSendo:${tipoDestinoCentroOeste}`)
+
+console.log(`Pacotes do Norte:${pacotesNorte} \nTotal:${pacotesNorte.length} \nSendo:${tipoDestinoNorte}`)
+
+console.log(`Pacotes do Nordeste:${pacotesNordeste} \nTotal:${pacotesNordeste.length} \nSendo:${tipoDestinoNordeste}`)
+
+console.log(`Pacotes do Sudeste:${pacotesSudeste} \nTotal:${pacotesSudeste.length} \nSendo:${tipoDestinoSudeste}`)
+
+console.log(`Pacotes do Sul:${pacotesSul} \n Total:${pacotesSul.length} \nSendo:${tipoDestinoSul}`)
+
+console.log(`Codigos invalidos: ${codigoInvalido} Total:${codigoInvalido.length}`)
 
 

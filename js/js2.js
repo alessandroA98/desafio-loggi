@@ -29,6 +29,9 @@ var pacotesSudeste = [];
 var pacotesSul = [];
 var codigoInvalido = [];
 
+var pacotesCentroOeste2 = [];
+var pacotesNorte2 = [];
+
 
 var invalidoFrase = 'codigo invalido'
 
@@ -38,15 +41,19 @@ var tipoDestinoNorte = [];
 var tipoDestinoNordeste = [];
 var tipoDestinoCentroOeste = [];
 
+var joiasCentro = []
+var joiasNorte = []
+var despachado = []
+
 
 for (i = 0; i < pacote.length; i++) {
 
     //
-    let origem = pacote[i].substring(0, 3);
-    let destino = pacote[i].substring(3, 6);
-    let codigoLoggi = pacote[i].substring(6, 9);
-    let codigoProduto = pacote[i].substring(9, 12);
-    let tipo = pacote[i].substring(12, 15);
+    var origem = pacote[i].substring(0, 3);
+    var destino = pacote[i].substring(3, 6);
+    var codigoLoggi = pacote[i].substring(6, 9);
+    var codigoProduto = pacote[i].substring(9, 12);
+    var tipo = pacote[i].substring(12, 15);
 
     var origemCidade = ''
     var resultadoOrigem = ''
@@ -149,8 +156,19 @@ for (i = 0; i < pacote.length; i++) {
 
     }
 
+    // despachados no centro oeste para o norte
+    
+    if ( origemCidade === 'Região Centro-oeste' && destinoCidade === `Região Norte`){
+        despachado.push(pacote[i])
+        console.log(despachado)
 
-    //Impressão
+        if (tipo == 001) {
+            despachado.pop(pacote[i])
+        }
+    }
+
+
+       //Impressão
 
     if (codigoProduto == '367') {
         console.log(`O vendedor 367 está com seu CNPJ inativo Codigo:${pacote[i]} \n `)
@@ -192,14 +210,12 @@ for (i = 0; i < pacote.length; i++) {
         else if (destino >= 100 && destino <= 199) {
             pacotesSul.pop(pacote[i])
             tipoDestinoSul.pop(pacote[i]);
-
         }
         else if (destino >= 201 && destino <= 299) {
             pacotesCentroOeste.pop(pacote[i])
             tipoDestinoCentroOeste.pop(pacote[i]);
-
         }
-        else if (destino >= 400 && destino <= 499) {
+        else if (destino >= 300 && destino <= 399) {
             pacotesNordeste.pop(pacote[i])
             tipoDestinoNordeste.pop(pacote[i])
 
@@ -207,7 +223,6 @@ for (i = 0; i < pacote.length; i++) {
         else if (destino >= 400 && destino <= 499) {
             pacotesNorte.pop(pacote[i])
             tipoDestinoNorte.pop(pacote[i])
-
         }
 
     }
@@ -223,32 +238,56 @@ for (i = 0; i < pacote.length; i++) {
         else if (destino >= 100 && destino <= 199) {
             pacotesSul.pop(pacote[i])
             tipoDestinoSul.pop(pacote[i]);
-
+            
         }
         else if (destino >= 201 && destino <= 299) {
             pacotesCentroOeste.pop(pacote[i])
             tipoDestinoCentroOeste.pop(pacote[i]);
-
+            
         }
         else if (destino >= 300 && destino <= 399) {
             pacotesNordeste.pop(pacote[i])
             tipoDestinoNordeste.pop(pacote[i])
-
+            
         }
         else if (destino >= 400 && destino <= 499) {
             pacotesNorte.pop(pacote[i])
             tipoDestinoNorte.pop(pacote[i])
-
+            
         }
-
+        
     }
     else if (origemCidade == 'Região Sul' && tipo == 888) {
         console.log(` OBS: pacotes têm como origem a região Sul e Brinquedos em seu conteúdo; \n Código: ${pacote[i]} \n ${resultadoOrigem} \n ${resultadoDestino} \n Codigo Loggi: ${codigoLoggi} \n Codigo do vendedor do produto: ${codigoProduto} \n ${tipoProduto} \n`)
     }
     else {
+        
+        //do norte para descarregar no centro
+
+        
+        if (origemCidade === `Região Norte` && destinoCidade === `Região Centro-oeste`) {
+            if( tipo == 001){
+                joiasCentro.push(pacote[i])
+            }
+            else {
+                pacotesCentroOeste2.push(pacote[i])
+            }
+        }
+        else if (destinoCidade === `Região Norte`) {
+            if (tipo == 001) {
+                joiasNorte.push(pacote[i])
+            }else {
+                pacotesNorte2.push(pacote[i])
+            }
+        }
+       
+        
+        
         console.log(`Código: ${pacote[i]} \n ${resultadoOrigem} \n ${resultadoDestino} \n Codigo Loggi: ${codigoLoggi} \n Codigo do vendedor do produto: ${codigoProduto} \n ${tipoProduto} \n`)
+        
     }
 }
+
 
 
 console.log(`Pacotes do Centro-Oeste:${pacotesCentroOeste} \nTotal:${pacotesCentroOeste.length} \nSendo:${tipoDestinoCentroOeste}`)
@@ -261,6 +300,8 @@ console.log(`Pacotes do Sudeste:${pacotesSudeste} \nTotal:${pacotesSudeste.lengt
 
 console.log(`Pacotes do Sul:${pacotesSul} \n Total:${pacotesSul.length} \nSendo:${tipoDestinoSul}`)
 
+console.log(`Se todos os pacotes fossem uma fila qual seria a ordem de carga para o Norte no caminhão para descarregar os pacotes da Região Centro Oeste primeiro; \n${joiasCentro} ${pacotesCentroOeste2} ${joiasNorte} ${pacotesNorte2}`)
+
+console.log(`Ao passar pela regiao Centro-Oeste Deverá despachar ${despachado.length} produto(s) com o Codigo:${despachado}`)
+
 console.log(`Codigos invalidos: ${codigoInvalido} Total:${codigoInvalido.length}`)
-
-

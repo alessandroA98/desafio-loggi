@@ -12,7 +12,7 @@ var pacote = [
     '555288555123001',
     '111388555123555',
     '288000555367333',
-    '066311555874001',
+    '066311555325001',
     '110333555123555',
     '333488555584333',
     '455448555123001',
@@ -39,13 +39,12 @@ for (i = 0; i < pacote.length; i++) {
 
     if (codigoProduto == '367') {
         console.log('O vendedor 367 está com seu CNPJ inativo')
-        console.log('oi')
     }
     else if (regiao >= 1 && regiao <= 99) {
         console.log('origem sul')
         if (destino >= 1 && destino <= 99) {
             if (tipo == 001) {
-                console.log(`destino sudeste, codigo Loggi ${codigoLoggi}, codigo do produto ${codigoProduto}, Joias`)
+                console.log(`destino sudeste, \n codigo Loggi ${codigoLoggi}, \n codigo do produto ${codigoProduto}, Joias`)
             }
             else if (tipo == 111) {
                 console.log(`destino sudeste, codigo Loggi ${codigoLoggi}, codigo do produto ${codigoProduto}, livros`)
